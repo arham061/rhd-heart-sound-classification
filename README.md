@@ -1,44 +1,85 @@
 # AI-Based Rheumatic Heart Disease Detection and Classification
 
-Bachelor's thesis / final-year team project at the Ghulam Ishaq Khan Institute of Engineering Sciences and Technology (GIKI), Pakistan.
+![Cover of our final thesis presentation](project-cover.jpg)
 
-The project explores heart-sound classification from phonocardiogram (PCG) recordings using an LSTM baseline and a fine-tuned DistilHuBERT audio transformer. It investigates preprocessing and data augmentation, and includes a Gradio audio-classification prototype.
+[Report](https://drive.google.com/file/d/1BrRuZqyo3YkyOsw_8qskbOPPVKCMnPXp/view) · [Demo video](https://drive.google.com/file/d/1nCyEOSsR4w2iWqOVlQEANKVqJ0ka9cX9/view) · [Notebook](thesis_original_sanitized.ipynb) · [Poster](project-poster.jpg)
+
+For my bachelor's thesis at the Ghulam Ishaq Khan Institute of Engineering Sciences and Technology (GIKI), I worked with Faiza Qadir and Muhammad Hamza Azeem on classifying heart sounds from phonocardiogram (PCG) recordings.
+
+We explored an LSTM baseline and a fine-tuned DistilHuBERT audio transformer, along with audio preprocessing, augmentation, and an application prototype. My main responsibility was developing the HuBERT-based model.
+
+## My contributions
+
+I spent several months developing and fine-tuning the HuBERT-based classifier, running successive experiments and refining the model. My notebook includes filtering and normalization experiments, audio export, DistilHuBERT fine-tuning with Hugging Face Transformers, and a Gradio classification demo.
+
+This repository contains part of that experimentation. I no longer have a complete record of every experiment, so I focus here on the code and results I can document.
 
 ## Project materials
 
 - [Final thesis report](https://drive.google.com/file/d/1BrRuZqyo3YkyOsw_8qskbOPPVKCMnPXp/view)
-- [Project paper](https://drive.google.com/file/d/1rnty9tLLq5t2Q_ZO48VMdIaTzXbQmiQb/view) — publication status not established
+- [Project paper](https://drive.google.com/file/d/1rnty9tLLq5t2Q_ZO48VMdIaTzXbQmiQb/view)
 - [Demo video](https://drive.google.com/file/d/1nCyEOSsR4w2iWqOVlQEANKVqJ0ka9cX9/view)
 - [Project poster](https://drive.google.com/file/d/1_kmUAhUTQj2nlNTFeBOLc1lgz7v97g6Z/view)
 - [Original Colab notebook](https://colab.research.google.com/drive/13v7VdgBpLNQ2y3cI8qOpEpgRWamKY-Od)
 
-## Approach
+## Our approach
 
-1. Explore recorded heart sounds and class labels.
-2. Investigate filtering, normalization, and acoustic features such as MFCCs, spectral centroids, and zero-crossing rate.
-3. Expand the training material through augmentation. The report describes time shifts, time stretching, pitch shifts, and volume adjustments using MATLAB.
-4. Compare an LSTM approach with fine-tuning of `ntu-spml/distilhubert` using Hugging Face Transformers.
-5. Demonstrate audio classification through Gradio.
+We investigated filtering, normalization, and acoustic features such as MFCCs, spectral centroids, and zero-crossing rate. We also explored augmentation using time shifts, time stretching, pitch shifts, and volume adjustments in MATLAB.
 
-The recovered notebook includes filtering experiments, normalization, audio export, DistilHuBERT fine-tuning, and a Gradio interface. The LSTM implementation and MATLAB augmentation source were not present in the supplied folder or recovered notebook.
+For classification, we compared an LSTM approach with fine-tuning of `ntu-spml/distilhubert`. I used Hugging Face Transformers for the HuBERT model and built a Gradio interface for trying audio classification.
 
-## Reported results and evaluation limits
+I have included my preprocessing and transformer notebook here. This repository does not include the LSTM implementation or the MATLAB augmentation scripts.
 
-| Approach | Accuracy reported in the thesis |
+![Training workflow from our final presentation](training-workflow.jpg)
+
+*Our presentation’s overview of audio augmentation and model training.*
+
+## Application prototype
+
+We demonstrated the classification model as part of a wider application prototype. These screenshots show our web interface; my main contribution was developing the HuBERT classifier.
+
+![Web application screenshots from our final presentation](web-app.jpg)
+
+## Results and limitations
+
+In our thesis, we reported the following accuracies:
+
+| Approach | Reported accuracy |
 | --- | ---: |
 | LSTM | 66% |
 | Fine-tuned DistilHuBERT | 95% |
 
-These are historical results reported by the team, not independently reproduced results. The report describes expanding approximately 400 recordings to around 1,300 through augmentation.
+![Accuracy and loss plots from our final presentation](training-results.jpg)
 
-The recovered notebook loads a folder named `Combined Augmented + Original` and then randomly splits recordings into 90% training and 10% evaluation data (`seed=42`). It does not show grouping original recordings with their augmented versions before splitting, or grouping by patient. Related recordings may therefore occur in both partitions. The evaluation partition is also used to select the best checkpoint. A separate untouched test evaluation is not demonstrated in this notebook.
+*Our original presentation plots. The evaluation limitations below apply to these results.*
 
-Heart-sound classification results do not establish clinical RHD diagnostic performance. This is an academic research prototype; the supplied materials do not establish clinical validation.
+We expanded approximately 400 recordings to around 1,300 through augmentation. These figures come from our original thesis experiments; I have not rerun the training for this repository.
 
-## Repository contents
+My notebook loads the combined original and augmented recordings, then randomly splits them into 90% training and 10% evaluation data (`seed=42`). This split does not explicitly keep each original recording and its augmented versions together, or group recordings by patient. Related recordings may therefore appear in both partitions, which could inflate the measured accuracy.
 
-- `thesis_original_sanitized.ipynb`: recovered historical Colab notebook, with a credential removed, outputs cleared, and execution metadata removed. Code behavior is otherwise preserved.
-- `REPRODUCIBILITY.md`: requirements and known issues in the recovered notebook.
+I also used the evaluation partition to select the best checkpoint. The notebook does not include a separate untouched test set. To evaluate generalization more reliably, I would split by original recording and patient before augmentation, then evaluate once on an untouched test set.
+
+We developed this as an academic research prototype. Our heart-sound classification results do not establish clinical RHD diagnostic performance.
+
+## Project poster
+
+<details>
+<summary>View our full project poster</summary>
+
+![Our original final-year project poster](project-poster.jpg)
+
+</details>
+
+Our poster presents the project as we described it at the time. For the scope of the reported accuracy, see the evaluation limitations above.
+
+## Code and setup
+
+- [`thesis_original_sanitized.ipynb`](thesis_original_sanitized.ipynb) — my original Colab notebook, with credentials and saved outputs removed.
+- [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md) — environment assumptions, known code issues, and notes for revisiting the experiments.
+
+The notebook uses paths from my Google Drive. You will need to update those paths and supply the corresponding labeled audio data. I have not included the dataset or trained weights in this repository.
+
+The notebook references `arham061/distilhubert-finetuned-PASCAL_Dataset_Augmented` on Hugging Face. I have not checked its current availability. The report, poster, and demo links point to Google Drive and may require access permissions.
 
 ## Team and supervision
 
@@ -46,16 +87,8 @@ Heart-sound classification results do not establish clinical RHD diagnostic perf
 - Faiza Qadir
 - Muhammad Hamza Azeem
 
-Advisor: Dr. Shahab Uddin Ansari. Co-advisor: Dr. Khurram Jadoon.
+Our advisor was Dr. Shahab Uddin Ansari, and our co-advisor was Dr. Khurram Jadoon. We also consulted and collaborated with Aga Khan Hospital, as described in our thesis.
 
-The thesis acknowledges consultation and collaboration with Aga Khan Hospital.
+## License
 
-### My contribution
-
-I primarily developed the HuBERT-based classification model, including fine-tuning and running successive experiments over several months. My work focused on iteratively testing and refining the main model. The available notebook documents part of this experimentation.
-
-## Availability
-
-The dataset and trained weights are not bundled here. The recovered notebook references a Hugging Face model, but its current availability has not been verified. The linked project documents remain on Google Drive and may require access permissions.
-
-No license has been assigned; redistribution rights for team materials and third-party figures require confirmation.
+I have not added a license to this repository. The project documents include team work and third-party figures, so I need to clarify the applicable rights before assigning a license.
