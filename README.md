@@ -50,9 +50,9 @@ Advisor: Dr. Shahab Uddin Ansari. Co-advisor: Dr. Khurram Jadoon.
 
 The thesis acknowledges consultation and collaboration with Aga Khan Hospital.
 
-### Arham's contribution
+### My contribution
 
-Arham primarily developed the HuBERT-based classification model, including fine-tuning and running successive experiments over several months. His work focused on iteratively testing and refining the main model. The available notebook documents part of this experimentation; a complete experiment-by-experiment record has not been recovered.
+I primarily developed the HuBERT-based classification model, including fine-tuning and running successive experiments over several months. My work focused on iteratively testing and refining the main model. The available notebook documents part of this experimentation.
 
 ## Availability
 
