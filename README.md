@@ -88,7 +88,3 @@ The notebook references `arham061/distilhubert-finetuned-PASCAL_Dataset_Augmente
 - Muhammad Hamza Azeem
 
 Our advisor was Dr. Shahab Uddin Ansari, and our co-advisor was Dr. Khurram Jadoon. We also consulted and collaborated with Aga Khan Hospital, as described in our thesis.
-
-## License
-
-I have not added a license to this repository. The project documents include team work and third-party figures, so I need to clarify the applicable rights before assigning a license.
